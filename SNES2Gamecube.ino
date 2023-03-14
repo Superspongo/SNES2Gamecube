@@ -5,6 +5,7 @@
 
 #include "Nintendo.h"
 #include "GameControllers.h"
+#include "ButtonMapping.h"
 
 // Pin definitions
 #define PIN_LED           ( LED_BUILTIN )
@@ -24,6 +25,8 @@
 
 #define DELAY_MS          (   5 )  // Delay after one cycle
 
+#define BUTTON_NUM        (   8 )  // Number of Buttons on SNES Pad excluding DPAD
+
 // Define SNES Controller
 GameControllers tSNESController;
 
@@ -36,6 +39,9 @@ Gamecube_Data_t tInputData = defaultGamecubeData;
 // DPad to Gamecube Mapping
 bool bAxisModeAnalog = false;
 bool bJustToggled    = false;
+
+// SNES Button Array
+bool abSNESButtons[ BUTTON_NUM ];
 
 void setup() 
 {
@@ -63,8 +69,8 @@ bool PressedOrHeld ( GameControllers::Button eButton )
 
 void loop() 
 {
-  // This resets and establishes all the values after the controller 
-  // sends them to the console and helps with initial "zeroing"
+  uint8_t i;
+
   uint8_t signalA = 0;
   uint8_t signalB = 0;
   uint8_t signalX = 0;
@@ -83,6 +89,15 @@ void loop()
 
   uint8_t signalxAxis = ANALOG_MIDDLE;
   uint8_t signalyAxis = ANALOG_MIDDLE;
+  
+  // This resets and establishes all the values after the controller 
+  // sends them to the console and helps with initial "zeroing"
+
+  for ( i=0; i<BUTTON_NUM; i++ )
+  {
+    abSNESButtons[ i ] = false;
+  }
+
 
   //---------------------
   // SNES Controller Code
@@ -111,14 +126,14 @@ void loop()
   
   // Read Buttons
   //
-  signalSTART = PressedOrHeld( GameControllers::START  );
-  signalZ     = PressedOrHeld( GameControllers::SELECT );
-  signalA     = PressedOrHeld( GameControllers::A      );
-  signalB     = PressedOrHeld( GameControllers::B      );
-  signalX     = PressedOrHeld( GameControllers::X      );
-  signalY     = PressedOrHeld( GameControllers::Y      );
-  signalL     = PressedOrHeld( GameControllers::L      );
-  signalR     = PressedOrHeld( GameControllers::R      );
+  signalSTART = abSNESButtons[ SNES_START  ] = PressedOrHeld( GameControllers::START  );
+  signalZ     = abSNESButtons[ SNES_SELECT ] = PressedOrHeld( GameControllers::SELECT );
+  signalA     = abSNESButtons[ SNES_A ]      = PressedOrHeld( GameControllers::A      );
+  signalB     = abSNESButtons[ SNES_B ]      = PressedOrHeld( GameControllers::B      );
+  signalX     = abSNESButtons[ SNES_X ]      = PressedOrHeld( GameControllers::X      );
+  signalY     = abSNESButtons[ SNES_Y ]      = PressedOrHeld( GameControllers::Y      );
+  signalL     = abSNESButtons[ SNES_L ]      = PressedOrHeld( GameControllers::L      );
+  signalR     = abSNESButtons[ SNES_R ]      = PressedOrHeld( GameControllers::R      );
   
   // Process DPAD depending on axis Mode
   //
@@ -146,15 +161,15 @@ void loop()
   }
 
   // Report data to Console
-  //
-  tInputData.report.a      = signalA;
-  tInputData.report.b      = signalB;
-  tInputData.report.x      = signalX;
-  tInputData.report.y      = signalY;
-  tInputData.report.z      = signalZ;
-  tInputData.report.start  = signalSTART;
-  tInputData.report.r      = signalR;
-  tInputData.report.l      = signalL;
+  //                         See ButtonMapping.h for Index-Mapping!
+  tInputData.report.a      = abSNESButtons[ IdxGamecubeA ];
+  tInputData.report.b      = abSNESButtons[ IdxGamecubeB ];
+  tInputData.report.x      = abSNESButtons[ IdxGamecubeX ];
+  tInputData.report.y      = abSNESButtons[ IdxGamecubeY ];
+  tInputData.report.z      = abSNESButtons[ IdxGamecubeZ ];
+  tInputData.report.start  = abSNESButtons[ IdxGamecubeSTART ];
+  tInputData.report.r      = abSNESButtons[ IdxGamecubeL ];
+  tInputData.report.l      = abSNESButtons[ IdxGamecubeR ];
   tInputData.report.xAxis  = signalxAxis;
   tInputData.report.yAxis  = signalyAxis;
   tInputData.report.dleft  = signalLEFT;       // DPad Left
