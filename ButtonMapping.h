@@ -1,11 +1,11 @@
 //
 // This header file is for mapping different button layouts 
 // of the Gamecube controller. 
-// There are 8 buttons that can be mapped to any button on 
-// the SNES controller.
+// There are 8 SNES buttons that can be mapped to any button 
+// on the Gamecube controller.
 // The SNES controller's inputs are stored in an array.
-// When the Gamecube report is created, it uses values of
-// the array according to the indexes that are provided
+// When the Gamecube report is created, these array values
+// are used according to the indexes that are provided
 // in this header file.
 // "ayIdxGamecubeX" is the array of indexes for Gamecube
 // button X.
