@@ -162,14 +162,14 @@ void loop()
 
   // Report data to Console
   //                         See ButtonMapping.h for Index-Mapping!
-  tInputData.report.a      = abSNESButtons[ IdxGamecubeA ];
-  tInputData.report.b      = abSNESButtons[ IdxGamecubeB ];
-  tInputData.report.x      = abSNESButtons[ IdxGamecubeX ];
-  tInputData.report.y      = abSNESButtons[ IdxGamecubeY ];
-  tInputData.report.z      = abSNESButtons[ IdxGamecubeZ ];
-  tInputData.report.start  = abSNESButtons[ IdxGamecubeSTART ];
-  tInputData.report.r      = abSNESButtons[ IdxGamecubeL ];
-  tInputData.report.l      = abSNESButtons[ IdxGamecubeR ];
+  tInputData.report.a      = abSNESButtons[ ayIdxGamecubeA     [ yActiveSet ] ];
+  tInputData.report.b      = abSNESButtons[ ayIdxGamecubeB     [ yActiveSet ] ];
+  tInputData.report.x      = abSNESButtons[ ayIdxGamecubeX     [ yActiveSet ] ];
+  tInputData.report.y      = abSNESButtons[ ayIdxGamecubeY     [ yActiveSet ] ];
+  tInputData.report.z      = abSNESButtons[ ayIdxGamecubeZ     [ yActiveSet ] ];
+  tInputData.report.start  = abSNESButtons[ ayIdxGamecubeSTART [ yActiveSet ] ];
+  tInputData.report.r      = abSNESButtons[ ayIdxGamecubeL     [ yActiveSet ] ];
+  tInputData.report.l      = abSNESButtons[ ayIdxGamecubeR     [ yActiveSet ] ];
   tInputData.report.xAxis  = signalxAxis;
   tInputData.report.yAxis  = signalyAxis;
   tInputData.report.dleft  = signalLEFT;       // DPad Left
