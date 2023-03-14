@@ -1,4 +1,4 @@
-// SNES2Gamecube Controller
+// SNES2Gamecube Controller by SuperSpongo (2023)
 // Uses library from NicoHood   https://github.com/NicoHood/Nintendo/
 // and h-file from bitluni      https://github.com/bitluni/ArduinoGameController/
 // 
@@ -7,6 +7,8 @@
 #include "GameControllers.h"
 #include "ButtonMapping.h"
 
+// #define DEBUG 1
+
 // Pin definitions
 #define PIN_LED           ( LED_BUILTIN )
 
@@ -14,16 +16,14 @@
 #define PIN_GC_DATA       (   2 )
 
 //SNES
-#define PIN_SNES_DATA     (  26 )  // Arduino Pin A3  
-#define PIN_SNES_LATCH    (  27 )  // Arduino Pin A4
-#define PIN_SNES_CLOCK    (  28 )  // Arduino Pin A5
+#define PIN_SNES_DATA     (  17 )  // Arduino Pin A3  
+#define PIN_SNES_LATCH    (  18 )  // Arduino Pin A4
+#define PIN_SNES_CLOCK    (  19 )  // Arduino Pin A5
 
 // Constants
 #define ANALOG_MIDDLE     ( 128 )  // Gamecube Analog Stick value for middle
-#define ANALOG_MIN        (  42 )  // Gamecube Analog Stick value for minimum
-#define ANALOG_MAX        ( 214 )  // Gamecube Analog Stick value for maximum
-
-#define DELAY_MS          (   5 )  // Delay after one cycle
+#define ANALOG_MIN        (  42 )  // Gamecube Analog Stick value for minimum (128 - 86)
+#define ANALOG_MAX        ( 214 )  // Gamecube Analog Stick value for maximum (128 + 86)
 
 #define BUTTON_NUM        (   8 )  // Number of Buttons on SNES Pad excluding DPAD
 
@@ -47,9 +47,8 @@ void setup()
 {
   // Start debug serial
   Serial.begin( 115200 );
-  
-  
-  // Set up debug led
+    
+  // Set up debug led (indicates AxisMode )
   pinMode( PIN_LED, OUTPUT );
 
   // initialize shared pins
@@ -57,6 +56,11 @@ void setup()
   
   // activate first controller ans set the type to SNES
   tSNESController.setController( 0, GameControllers::SNES, PIN_SNES_DATA );
+
+  // initialize Button Mapping
+  ButtonMappingInit();
+  
+  Serial.println( "Alles initialisiert" );
 }
 
 // Helper Function
@@ -98,8 +102,7 @@ void loop()
 
   // Toggle Axis Mode by pressing L, R, Start and Select simultaneously:
   //
-  if (     PressedOrHeld( GameControllers::L      )
-       &&  PressedOrHeld( GameControllers::R      )
+  if (     PressedOrHeld( GameControllers::R      )
        &&  PressedOrHeld( GameControllers::START  )
        &&  PressedOrHeld( GameControllers::SELECT )
        && !bJustToggled
@@ -110,7 +113,27 @@ void loop()
   }
   else
   {
-    bJustToggled = false;
+    if (    !PressedOrHeld( GameControllers::R      )
+         && !PressedOrHeld( GameControllers::START  )
+         && !PressedOrHeld( GameControllers::SELECT ) 
+       )
+    {
+      bJustToggled = false;
+    }
+  }
+  
+  // Set Mapping Mode
+  //
+  if (     PressedOrHeld( GameControllers::L      )
+       &&  PressedOrHeld( GameControllers::R      )
+       &&  PressedOrHeld( GameControllers::START  )
+     )
+  {
+         if ( PressedOrHeld( GameControllers::UP    ) ) yActiveSet = MAPPING_SET_1;
+    else if ( PressedOrHeld( GameControllers::DOWN  ) ) yActiveSet = MAPPING_SET_2;
+    else if ( PressedOrHeld( GameControllers::LEFT  ) ) yActiveSet = MAPPING_SET_3;
+    else if ( PressedOrHeld( GameControllers::RIGHT ) ) yActiveSet = MAPPING_SET_4;
+    else                                                yActiveSet = yActiveSet;
   }
   
   // Read Buttons
@@ -130,10 +153,10 @@ void loop()
   {
     // X-Axis
     if (    (  PressedOrHeld( GameControllers::LEFT   ) ) 
-         && ( !PressedOrHeld( GameControllers::RIGHT  ) ) ) signalxAxis  = ANALOG_MAX;
+         && ( !PressedOrHeld( GameControllers::RIGHT  ) ) ) signalxAxis  = ANALOG_MIN;
     
     if (    ( !PressedOrHeld( GameControllers::LEFT   ) )
-         && (  PressedOrHeld( GameControllers::RIGHT  ) ) ) signalxAxis  = ANALOG_MIN;
+         && (  PressedOrHeld( GameControllers::RIGHT  ) ) ) signalxAxis  = ANALOG_MAX;
     
     // Y-Axis
     if (    (  PressedOrHeld( GameControllers::UP     ) )
@@ -170,7 +193,8 @@ void loop()
   //
   GamecubeConsole1.write( tInputData );
 
-  // Delay polling cycle
+  // Write LED
   //
-  delay( DELAY_MS );
+  // Normal indicator light for Analog/DPAD mode
+  digitalWrite( PIN_LED, bAxisModeAnalog );
 }

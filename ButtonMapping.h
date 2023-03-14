@@ -46,7 +46,7 @@ uint8_t yActiveSet = MAPPING_SET_1;
 
 void ButtonMappingInit ( void )
 {
-  // Mapping Set 1:
+  // Mapping Set 1 (Gameboy Player):
   ayIdxGamecubeX     [ MAPPING_SET_1 ] = SNES_A;      
   ayIdxGamecubeA     [ MAPPING_SET_1 ] = SNES_B;      
   ayIdxGamecubeY     [ MAPPING_SET_1 ] = SNES_X;      
@@ -56,31 +56,31 @@ void ButtonMappingInit ( void )
   ayIdxGamecubeL     [ MAPPING_SET_1 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_1 ] = SNES_R;     
   
-  // Mapping Set 2:
-  ayIdxGamecubeX     [ MAPPING_SET_2 ] = SNES_A;      
-  ayIdxGamecubeA     [ MAPPING_SET_2 ] = SNES_B;      
-  ayIdxGamecubeY     [ MAPPING_SET_2 ] = SNES_X;      
-  ayIdxGamecubeB     [ MAPPING_SET_2 ] = SNES_Y;      
+  // Mapping Set 2 (Default: Normal 1 to 1):
+  ayIdxGamecubeX     [ MAPPING_SET_2 ] = SNES_X;      
+  ayIdxGamecubeA     [ MAPPING_SET_2 ] = SNES_A;      
+  ayIdxGamecubeY     [ MAPPING_SET_2 ] = SNES_Y;      
+  ayIdxGamecubeB     [ MAPPING_SET_2 ] = SNES_B;      
   ayIdxGamecubeZ     [ MAPPING_SET_2 ] = SNES_SELECT;
   ayIdxGamecubeSTART [ MAPPING_SET_2 ] = SNES_START;  
   ayIdxGamecubeL     [ MAPPING_SET_2 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_2 ] = SNES_R;     
   
-  // Mapping Set 3:
-  ayIdxGamecubeX     [ MAPPING_SET_3 ] = SNES_A;      
-  ayIdxGamecubeA     [ MAPPING_SET_3 ] = SNES_B;      
-  ayIdxGamecubeY     [ MAPPING_SET_3 ] = SNES_X;      
-  ayIdxGamecubeB     [ MAPPING_SET_3 ] = SNES_Y;      
+  // Mapping Set 3 :
+  ayIdxGamecubeX     [ MAPPING_SET_3 ] = SNES_X;      
+  ayIdxGamecubeA     [ MAPPING_SET_3 ] = SNES_A;      
+  ayIdxGamecubeY     [ MAPPING_SET_3 ] = SNES_Y;      
+  ayIdxGamecubeB     [ MAPPING_SET_3 ] = SNES_B;      
   ayIdxGamecubeZ     [ MAPPING_SET_3 ] = SNES_SELECT;
   ayIdxGamecubeSTART [ MAPPING_SET_3 ] = SNES_START;  
   ayIdxGamecubeL     [ MAPPING_SET_3 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_3 ] = SNES_R;     
   
   // Mapping Set 4:
-  ayIdxGamecubeX     [ MAPPING_SET_4 ] = SNES_A;      
-  ayIdxGamecubeA     [ MAPPING_SET_4 ] = SNES_B;      
-  ayIdxGamecubeY     [ MAPPING_SET_4 ] = SNES_X;      
-  ayIdxGamecubeB     [ MAPPING_SET_4 ] = SNES_Y;      
+  ayIdxGamecubeX     [ MAPPING_SET_4 ] = SNES_X;      
+  ayIdxGamecubeA     [ MAPPING_SET_4 ] = SNES_A;      
+  ayIdxGamecubeY     [ MAPPING_SET_4 ] = SNES_Y;      
+  ayIdxGamecubeB     [ MAPPING_SET_4 ] = SNES_B;      
   ayIdxGamecubeZ     [ MAPPING_SET_4 ] = SNES_SELECT;
   ayIdxGamecubeSTART [ MAPPING_SET_4 ] = SNES_START;  
   ayIdxGamecubeL     [ MAPPING_SET_4 ] = SNES_L;      
