@@ -24,18 +24,18 @@
 
 #define DELAY_MS          (   5 )  // Delay after one cycle
 
-// Define NES Controller
+// Define SNES Controller
 GameControllers tSNESController;
 
-// Define a Gamecube Console Class
+// Define a Gamecube console instance
 CGamecubeConsole GamecubeConsole1( PIN_GC_DATA );
 
 // Structure for data to be sent to console
 Gamecube_Data_t tInputData = defaultGamecubeData;   
 
 // DPad to Gamecube Mapping
-bool AxisModeAnalog = false;
-bool JustToggled    = false;
+bool bAxisModeAnalog = false;
+bool bJustToggled    = false;
 
 void setup() 
 {
@@ -98,15 +98,15 @@ void loop()
        &&  PressedOrHeld( GameControllers::R      )
        &&  PressedOrHeld( GameControllers::START  )
        &&  PressedOrHeld( GameControllers::SELECT )
-       && !JustToggled
+       && !bJustToggled
      ) 
   {
-    AxisModeAnalog = !AxisModeAnalog;
-    JustToggled    = true;
+    bAxisModeAnalog = !bAxisModeAnalog;
+    bJustToggled    = true;
   }
   else
   {
-    JustToggled = false;
+    bJustToggled = false;
   }
   
   // Read Buttons
@@ -122,7 +122,7 @@ void loop()
   
   // Process DPAD depending on axis Mode
   //
-  if ( AxisModeAnalog )
+  if ( bAxisModeAnalog )
   {
     // X-Axis
     if (    (  PressedOrHeld( GameControllers::LEFT   ) ) 
