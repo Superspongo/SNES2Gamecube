@@ -71,15 +71,8 @@ void loop()
 {
   uint8_t i;
 
-  uint8_t signalA = 0;
-  uint8_t signalB = 0;
-  uint8_t signalX = 0;
-  uint8_t signalY = 0;
-  uint8_t signalZ = 0;
-  uint8_t signalSTART = 0;
-
-  uint8_t signalR = 0;
-  uint8_t signalL = 0;
+  // This resets and establishes all the values after the controller 
+  // sends them to the console and helps with initial "zeroing"
 
   //DPAD
   uint8_t signalLEFT  = 0;
@@ -90,14 +83,10 @@ void loop()
   uint8_t signalxAxis = ANALOG_MIDDLE;
   uint8_t signalyAxis = ANALOG_MIDDLE;
   
-  // This resets and establishes all the values after the controller 
-  // sends them to the console and helps with initial "zeroing"
-
   for ( i=0; i<BUTTON_NUM; i++ )
   {
     abSNESButtons[ i ] = false;
   }
-
 
   //---------------------
   // SNES Controller Code
@@ -126,14 +115,14 @@ void loop()
   
   // Read Buttons
   //
-  signalSTART = abSNESButtons[ SNES_START  ] = PressedOrHeld( GameControllers::START  );
-  signalZ     = abSNESButtons[ SNES_SELECT ] = PressedOrHeld( GameControllers::SELECT );
-  signalA     = abSNESButtons[ SNES_A ]      = PressedOrHeld( GameControllers::A      );
-  signalB     = abSNESButtons[ SNES_B ]      = PressedOrHeld( GameControllers::B      );
-  signalX     = abSNESButtons[ SNES_X ]      = PressedOrHeld( GameControllers::X      );
-  signalY     = abSNESButtons[ SNES_Y ]      = PressedOrHeld( GameControllers::Y      );
-  signalL     = abSNESButtons[ SNES_L ]      = PressedOrHeld( GameControllers::L      );
-  signalR     = abSNESButtons[ SNES_R ]      = PressedOrHeld( GameControllers::R      );
+  abSNESButtons[ SNES_START  ] = PressedOrHeld( GameControllers::START  );
+  abSNESButtons[ SNES_SELECT ] = PressedOrHeld( GameControllers::SELECT );
+  abSNESButtons[ SNES_A ]      = PressedOrHeld( GameControllers::A      );
+  abSNESButtons[ SNES_B ]      = PressedOrHeld( GameControllers::B      );
+  abSNESButtons[ SNES_X ]      = PressedOrHeld( GameControllers::X      );
+  abSNESButtons[ SNES_Y ]      = PressedOrHeld( GameControllers::Y      );
+  abSNESButtons[ SNES_L ]      = PressedOrHeld( GameControllers::L      );
+  abSNESButtons[ SNES_R ]      = PressedOrHeld( GameControllers::R      );
   
   // Process DPAD depending on axis Mode
   //
