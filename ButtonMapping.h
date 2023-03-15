@@ -14,7 +14,7 @@
 // The active mapping set is determined by "yActiveSet".
 // Default is MAPPING_SET_1. 
 
-//SNES Array Index
+// SNES Array Index
 //
 #define SNES_A      ( 0 )
 #define SNES_B      ( 1 )
@@ -49,9 +49,9 @@ void ButtonMappingInit ( void )
   // Mapping Set 1 (Gameboy Player):
   ayIdxGamecubeX     [ MAPPING_SET_1 ] = SNES_A;      
   ayIdxGamecubeA     [ MAPPING_SET_1 ] = SNES_B;      
-  ayIdxGamecubeY     [ MAPPING_SET_1 ] = SNES_X;      
+  ayIdxGamecubeY     [ MAPPING_SET_1 ] = SNES_SELECT;      // GBA Select: Gamecube Y
   ayIdxGamecubeB     [ MAPPING_SET_1 ] = SNES_Y;      
-  ayIdxGamecubeZ     [ MAPPING_SET_1 ] = SNES_SELECT;
+  ayIdxGamecubeZ     [ MAPPING_SET_1 ] = SNES_X;
   ayIdxGamecubeSTART [ MAPPING_SET_1 ] = SNES_START;  
   ayIdxGamecubeL     [ MAPPING_SET_1 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_1 ] = SNES_R;     
@@ -66,17 +66,17 @@ void ButtonMappingInit ( void )
   ayIdxGamecubeL     [ MAPPING_SET_2 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_2 ] = SNES_R;     
   
-  // Mapping Set 3 :
+  // Mapping Set 3 (Gameboy Player A/B Style):
   ayIdxGamecubeX     [ MAPPING_SET_3 ] = SNES_X;      
   ayIdxGamecubeA     [ MAPPING_SET_3 ] = SNES_A;      
-  ayIdxGamecubeY     [ MAPPING_SET_3 ] = SNES_Y;      
+  ayIdxGamecubeY     [ MAPPING_SET_1 ] = SNES_SELECT;      // GBA Select: Gamecube Y
   ayIdxGamecubeB     [ MAPPING_SET_3 ] = SNES_B;      
-  ayIdxGamecubeZ     [ MAPPING_SET_3 ] = SNES_SELECT;
+  ayIdxGamecubeZ     [ MAPPING_SET_3 ] = SNES_Y;
   ayIdxGamecubeSTART [ MAPPING_SET_3 ] = SNES_START;  
   ayIdxGamecubeL     [ MAPPING_SET_3 ] = SNES_L;      
   ayIdxGamecubeR     [ MAPPING_SET_3 ] = SNES_R;     
   
-  // Mapping Set 4:
+  // Mapping Set 4 (Currently unused):
   ayIdxGamecubeX     [ MAPPING_SET_4 ] = SNES_X;      
   ayIdxGamecubeA     [ MAPPING_SET_4 ] = SNES_A;      
   ayIdxGamecubeY     [ MAPPING_SET_4 ] = SNES_Y;      
