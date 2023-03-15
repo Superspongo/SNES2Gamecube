@@ -84,6 +84,8 @@ void loop()
   uint8_t signalDOWN  = 0;
   uint8_t signalUP    = 0;
 
+  uint8_t signalAnalogLeft  = 0;
+  uint8_t signalAnalogRight = 0;
   uint8_t signalxAxis = ANALOG_MIDDLE;
   uint8_t signalyAxis = ANALOG_MIDDLE;
   
@@ -171,7 +173,13 @@ void loop()
     if( PressedOrHeld( GameControllers::LEFT   ) ) signalLEFT  = 1;
     if( PressedOrHeld( GameControllers::RIGHT  ) ) signalRIGHT = 1;
   }
-
+  
+  // Analog Triggers are also pushed all the way in, when the
+  // clicky L/R buttons on the Gamecube pad are detected
+  //
+  if ( abSNESButtons[ ayIdxGamecubeL [ yActiveSet ] ] ) signalAnalogRight = ANALOG_MAX;
+  if ( abSNESButtons[ ayIdxGamecubeR [ yActiveSet ] ] ) signalAnalogLeft  = ANALOG_MAX;
+  
   // Report data to Console
   //                         See ButtonMapping.h for Index-Mapping!
   tInputData.report.a      = abSNESButtons[ ayIdxGamecubeA     [ yActiveSet ] ];
@@ -182,6 +190,8 @@ void loop()
   tInputData.report.start  = abSNESButtons[ ayIdxGamecubeSTART [ yActiveSet ] ];
   tInputData.report.r      = abSNESButtons[ ayIdxGamecubeL     [ yActiveSet ] ];
   tInputData.report.l      = abSNESButtons[ ayIdxGamecubeR     [ yActiveSet ] ];
+  tInputData.report.right  = signalAnalogRight;
+  tInputData.report.left   = signalAnalogLeft;
   tInputData.report.xAxis  = signalxAxis;
   tInputData.report.yAxis  = signalyAxis;
   tInputData.report.dleft  = signalLEFT;       // DPad Left
